@@ -1,17 +1,27 @@
-export class Entity {
+import { Position, Velocity, Visibility } from '@/components'
+
+export default class Entity {
   components: any[]
 
   constructor() {
     this.components = []
   }
 
-  addComponent(component: any) {
+  add(component: any) {
     this.components.push(component)
 
     return this
   }
 
-  getComponent(componentType: any) {
-    return this.components.find(component => component instanceof componentType)
+  getPosition(): Position {
+    return this.components.find(component => component instanceof Position)
+  }
+
+  getVelocity(): Velocity {
+    return this.components.find(component => component instanceof Velocity)
+  }
+
+  getVisibility(): Visibility {
+    return this.components.find(component => component instanceof Visibility)
   }
 }

@@ -1,16 +1,21 @@
-import { Entity } from './entity'
-import { Position, Velocity } from './components'
+import * as PIXI from 'pixi.js'
 
-export class Movement {
-  update(entities: Entity[], delta: number) {
-    entities.forEach(entity => {
-      const positionComponent = entity.getComponent(Position)
-      const velocityComponent = entity.getComponent(Velocity)
+import type Entity from '@/entity'
 
-      if (positionComponent && velocityComponent) {
-        positionComponent.x += velocityComponent.dx * delta
-        positionComponent.y += velocityComponent.dy * delta
-      }
-    })
+export class NodeSystem {
+  update(entity: Entity, delta: number) {
+    const position = entity.getPosition()
+    const velocity = entity.getVelocity()
+
+    if (position && velocity) {
+      position.x += velocity?.dx * delta
+      position.y += velocity?.dy * delta
+    }
+  }
+
+  render(entity: Entity, delta: number, renderCallback: () => void) {
+    this.update(entity, delta)
+
+    if (entity.getVisibility().visible) renderCallback()
   }
 }
