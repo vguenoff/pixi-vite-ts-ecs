@@ -1,5 +1,3 @@
-import * as PIXI from 'pixi.js'
-
 import type Entity from '@/entity'
 
 export class NodeSystem {
